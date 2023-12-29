@@ -5,7 +5,7 @@ module.exports = {
   target: 'node', // 确保 Node.js 内置模块不会被打包进去
   entry: './src/server.ts', // 应用程序的入口点
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist/server'),
     filename: 'bundle.js'
   },
   mode: 'production',
