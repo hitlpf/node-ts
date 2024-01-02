@@ -2,15 +2,18 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  target: 'node', // 确保 Node.js 内置模块不会被打包进去
-  entry: './src/server.ts', // 应用程序的入口点
+  // 为node环境打包代码，确保Node.js内置模块不会被打包进去
+  target: 'node',
+  // 应用程序的入口点
+  entry: './src/server.ts',
   output: {
     path: path.resolve(__dirname, '../dist/server'),
     filename: 'bundle.js'
   },
   mode: 'production',
   resolve: {
-    extensions: ['.ts', '.js', '.tsx'] // 解析这些扩展名的文件
+    // 解析这些扩展名的文件
+    extensions: ['.ts', '.js', '.tsx']
   },
   module: {
     rules: [
@@ -22,9 +25,11 @@ module.exports = {
             presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
           }
         },
+        // babel-loader不会转译任何在node_modules目录中的js、ts、tsx文件。
         exclude: /node_modules/,
       }
     ]
   },
-  externals: [nodeExternals()], // 排除 node_modules 中的所有模块
+  // 排除node_modules中的所有模块
+  externals: [nodeExternals()],
 };

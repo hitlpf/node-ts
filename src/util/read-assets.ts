@@ -1,13 +1,10 @@
 import fs from 'fs';
 
 class Assets {
-  constructor(){
-    this.filename = 'dist/client/assets.json';
-  }
+  readonly filename: string = 'dist/client/assets.json';
 
-  getAssetsJsonFile() {
-    const theDataLines = fs.readFileSync(this.filename, "utf-8");
-    return theDataLines;
+  public getAssetsJsonFile() {
+    return fs.readFileSync(this.filename, "utf-8");
   }
 }
 

@@ -2,7 +2,9 @@ const path = require('path');
 const AssetsPlugin = require('assets-webpack-plugin');
 
 module.exports = {
-  // 设置构建模式为生产模式
+  // 确保Webpack知道在浏览器环境中运行，默认就是web，因此可以忽略
+  target: 'web',
+  // 设置构建模式为开发模式
   mode: 'production',
   // 客户端的入口文件
   entry: './src/client/index.tsx',
@@ -17,6 +19,8 @@ module.exports = {
     // 添加 '.ts' 和 '.tsx' 作为可解析扩展
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
+  // 配置source map以便调试。可以在浏览器的开发者工具中查看和调试原始源代码。
+  // devtool: 'source-map',
   module: {
     rules: [
       {
@@ -31,15 +35,11 @@ module.exports = {
       }
     ]
   },
-  // 配置插件，例如 HtmlWebpackPlugin 等
+  // 配置插件
   plugins: [
     new AssetsPlugin({
       path: path.resolve(__dirname, '../dist/client/'),
       filename: 'assets.json'
     }),
   ],
-  // 确保 Webpack 知道在浏览器环境中运行
-  target: 'web',
-  // 配置 source map 以便调试
-  // devtool: 'source-map'
 };
