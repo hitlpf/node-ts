@@ -7,11 +7,13 @@ module.exports = {
   // 设置构建模式为开发模式
   mode: 'production',
   // 客户端的入口文件
-  entry: './src/client/index.tsx',
+  entry: {
+    main: './src/client/index.tsx',
+  },
   // 输出配置
   output: {
     path: path.resolve(__dirname, '../dist/client'),
-    filename: 'bundle.js',
+    filename: "[name].[chunkhash:8].js",
     publicPath: '/'
   },
   // 解析配置
@@ -34,6 +36,27 @@ module.exports = {
         exclude: /node_modules/,
       }
     ]
+  },
+  optimization: {
+    minimize: true, // 压缩js，删除js中无用的webpack代码
+    runtimeChunk: {
+      name: 'manifest'
+    },
+    splitChunks: {
+      chunks: "all",
+      cacheGroups: {
+        vendors: false,
+        default: false,
+        vendor_react: {
+          test: (module) => {
+            return /[\\/]node_modules[\\/](react|react-dom)[\\/]/.test(module.resource);
+          },
+          name: 'vendor_react',
+          chunks: 'all',
+          priority: 10
+        },
+      }
+    }
   },
   // 配置插件
   plugins: [

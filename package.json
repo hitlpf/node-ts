@@ -1,8 +1,8 @@
 {
   "scripts": {
     "dev": "rm -rf dist && npm-run-all --parallel *:dev",
-    "server:dev": "npx webpack --env=production  --config ./build/webpack.server.config.js --watch",
-    "client:dev": "npx webpack --env=development  --config ./build/webpack.client.config.js --watch",
+    "server:dev": "npx webpack --env=production  --config ./build/webpack.server.js --watch",
+    "client:dev": "npx webpack --env=production  --config ./build/webpack.client.js --watch",
     "start": "nodemon ./dist/server/bundle.js"
   },
   "devDependencies": {

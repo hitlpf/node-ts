@@ -15,15 +15,13 @@ const router = new Router();
 
 router.get('/', async (ctx, next) => {
   await next();
-  
-  const assetsJsonFile = assetsUtil.getAssetsJsonFile();
-  const assetsJson = JSON.parse(assetsJsonFile);
-  const { js: clientJs } = assetsJson?.main;
+
+  const { manifestJs, mainJs, vendorReactJs } = assetsUtil.getJSAssets();
 
   const data = { name: 'andy' };
 
-  const appHtml = renderToString(React.createElement(App, data));
-  console.log(appHtml);
+  const appHtml: string = renderToString(React.createElement(App, data));
+  logger(appHtml);
   
   ctx.body = `
     <html>
@@ -38,7 +36,9 @@ router.get('/', async (ctx, next) => {
           // 俗称：数据脱水
           window.data = ${JSON.stringify(data)};
         </script>
-        <script src="${clientJs}"></script>
+        <script src="${manifestJs}"></script>
+        <script src="${vendorReactJs}"></script>
+        <script src="${mainJs}"></script>
       </body>
     </html>`;
 });
@@ -49,7 +49,6 @@ app.use(router.routes()).use(router.allowedMethods());
 app.use(koaStatic(path.join(__dirname, '../client'), { maxage: 0 }));
 
 const port = 3000;
-const info: string = `Server running on http://localhost:${port}`;
 app.listen(port, () => {
-  logger(info);
+  logger(`Server running on http://localhost:${port}`);
 });

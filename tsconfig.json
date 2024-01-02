@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6", // 或根据你的 Node.js 版本选择合适的目标
-    "outDir": "./dist",
-    "jsx": "react",
-    "esModuleInterop": true,
+    // "module": "commonjs", // tsc转译的模块方式
+    // "target": "es6", // tsc转译的目标版本
+    // "outDir": "./dist", // tsc转译后的输出目录
+    "jsx": "react", // 将JSX转换为React.createElement
+    "esModuleInterop": true, // 这意味着可以使用 import 语句来导入 CommonJS 模块
     "strict": true
   },
   "include": ["global.d.ts", "src/**/*"],
