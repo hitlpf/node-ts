@@ -35,7 +35,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: {
-                // 仅导出局部样式，将classname嵌入到html中，不生成 CSS 文件
+                // 支持css module，仅将classname嵌入到html中，不生成 CSS 文件
                 exportOnlyLocals: true,
               },
             },
