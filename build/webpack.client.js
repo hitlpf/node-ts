@@ -1,6 +1,7 @@
 const path = require('path');
 const AssetsPlugin = require('assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
   // 确保Webpack知道在浏览器环境中运行，默认就是web，因此可以忽略
@@ -37,14 +38,14 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(scss|css)$/,
+        test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: { 
               modules: {
-                // className的命名格式
+                // 支持css module，className局部化类名的命名格式
                 localIdentName: '[folder]_[local]_[hash:base64:8]',
               },
             }
@@ -52,10 +53,22 @@ module.exports = {
           'sass-loader'
         ]
       },
+      // .css文件为纯css，没有用到css module
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+        ]
+      },
     ]
   },
   optimization: {
-    minimize: true, // 压缩js，删除js中无用的webpack代码
+    minimize: true,
+    minimizer: [
+      '...',
+      new CssMinimizerPlugin()
+    ],
     runtimeChunk: {
       name: 'manifest'
     },
