@@ -1,5 +1,6 @@
 const path = require('path');
 const AssetsPlugin = require('assets-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   // 确保Webpack知道在浏览器环境中运行，默认就是web，因此可以忽略
@@ -13,7 +14,7 @@ module.exports = {
   // 输出配置
   output: {
     path: path.resolve(__dirname, '../dist/client'),
-    filename: "[name].[chunkhash:8].js",
+    filename: "js/[name].[chunkhash:8].js",
     publicPath: '/'
   },
   // 解析配置
@@ -34,7 +35,21 @@ module.exports = {
           }
         },
         exclude: /node_modules/,
-      }
+      },
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          // 'style-loader', 
+          {
+            loader: 'css-loader',
+            options: { 
+              // modules: true
+            }
+          },
+          'sass-loader'
+        ]
+      },
     ]
   },
   optimization: {
@@ -60,6 +75,10 @@ module.exports = {
   },
   // 配置插件
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/head_[name].[contenthash:8].css',
+      chunkFilename: 'css/head_[name].[contenthash:8].css'
+    }),
     new AssetsPlugin({
       path: path.resolve(__dirname, '../dist/client/'),
       filename: 'assets.json'

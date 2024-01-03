@@ -27,7 +27,21 @@ module.exports = {
         },
         // babel-loader不会转译任何在node_modules目录中的js、ts、tsx文件。
         exclude: /node_modules/,
-      }
+      },
+      {
+        test: /\.(css|scss)$/,
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                // 仅导出局部样式，将classname嵌入到html中，不生成 CSS 文件
+                exportOnlyLocals: true,
+              },
+            },
+          },
+        ]
+      },
     ]
   },
   // 排除node_modules中的所有模块

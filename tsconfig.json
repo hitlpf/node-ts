@@ -7,6 +7,6 @@
     "esModuleInterop": true, // 这意味着可以使用 import 语句来导入 CommonJS 模块
     "strict": true
   },
-  "include": ["global.d.ts", "src/**/*"],
+  "include": ["global.d.ts", "declaration.d.ts", "src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

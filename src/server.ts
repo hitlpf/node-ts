@@ -16,7 +16,7 @@ const router = new Router();
 router.get('/', async (ctx, next) => {
   await next();
 
-  const { manifestJs, mainJs, vendorReactJs } = assetsUtil.getJSAssets();
+  const { manifestJs, mainJs, mainCss, vendorReactJs } = assetsUtil.getAssets();
 
   const data = { name: 'andy' };
 
@@ -28,16 +28,17 @@ router.get('/', async (ctx, next) => {
       <head>
         <title>react ssr</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="${mainCss}" />
+        <script src="${manifestJs}"></script>
+        <script src="${vendorReactJs}"></script>
       </head>
       <body>
         <div id="root">${appHtml}</div>
         <script>
           // 所以这里要获取下存在服务端的数据并作为初始值存到 window 中
-          // 俗称：数据脱水
+          // 数据脱水
           window.data = ${JSON.stringify(data)};
         </script>
-        <script src="${manifestJs}"></script>
-        <script src="${vendorReactJs}"></script>
         <script src="${mainJs}"></script>
       </body>
     </html>`;

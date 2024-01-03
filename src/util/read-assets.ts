@@ -7,16 +7,16 @@ class Assets {
     return fs.readFileSync(this.filename, "utf-8");
   }
 
-  public getJSAssets() {
+  public getAssets() {
     const assetsJsonFile = this.getAssetsJsonFile();
     const assetsJson = JSON.parse(assetsJsonFile);
     const { 
       manifest: { js: manifestJs }, 
-      main: { js: mainJs }, 
+      main: { js: mainJs, css: mainCss }, 
       vendor_react: { js: vendorReactJs }, 
     } = assetsJson;
 
-    return { manifestJs, mainJs, vendorReactJs }
+    return { manifestJs, mainJs, vendorReactJs, mainCss }
   }
 }
 
