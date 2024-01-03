@@ -64,10 +64,13 @@ module.exports = {
     ]
   },
   optimization: {
+    // 布尔值，production模式下，默认为 true，Webpack会默认使用内置的压缩插件（TerserPlugin）来压缩js，但不会压缩css。
     minimize: true,
+    // 数组，允许你自定义和配置压缩插件。
     minimizer: [
       '...',
-      new CssMinimizerPlugin()
+      // css的压缩插件
+      new CssMinimizerPlugin(),
     ],
     runtimeChunk: {
       name: 'manifest'
