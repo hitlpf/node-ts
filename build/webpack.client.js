@@ -40,11 +40,13 @@ module.exports = {
         test: /\.(scss|css)$/,
         use: [
           MiniCssExtractPlugin.loader,
-          // 'style-loader', 
           {
             loader: 'css-loader',
             options: { 
-              // modules: true
+              modules: {
+                // className的命名格式
+                localIdentName: '[folder]_[local]_[hash:base64:8]',
+              },
             }
           },
           'sass-loader'

@@ -35,8 +35,10 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: {
-                // 支持css module，仅将classname嵌入到html中，不生成 CSS 文件
+                // 支持css module，将className类名局部化，仅将className嵌入到html中，不生成 CSS 文件
                 exportOnlyLocals: true,
+                // className的命名格式
+                localIdentName: '[folder]_[local]_[hash:base64:8]',
               },
             },
           },

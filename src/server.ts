@@ -29,8 +29,6 @@ router.get('/', async (ctx, next) => {
         <title>react ssr</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="${mainCss}" />
-        <script src="${manifestJs}"></script>
-        <script src="${vendorReactJs}"></script>
       </head>
       <body>
         <div id="root">${appHtml}</div>
@@ -39,6 +37,8 @@ router.get('/', async (ctx, next) => {
           // 数据脱水
           window.data = ${JSON.stringify(data)};
         </script>
+        <script src="${manifestJs}"></script>
+        <script src="${vendorReactJs}"></script>
         <script src="${mainJs}"></script>
       </body>
     </html>`;
