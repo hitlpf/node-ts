@@ -1,6 +1,3 @@
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-// import { renderToPipeableStream } from 'react-dom/server';
 import Koa from 'koa';
 import koaStatic from 'koa-static';
 import Router from 'koa-router';
@@ -8,7 +5,8 @@ import path from 'path';
 
 import logger from "../util/logger";
 import assetsUtil from "../util/read-assets";
-import App from '../views';
+
+import renderSSR from './render';
 
 const app = new Koa();
 
@@ -52,7 +50,7 @@ router.get('/', async (ctx, next) => {
 
   const data = { name: 'andy' };
 
-  const appHtml: string = renderToString(React.createElement(App, data));
+  const appHtml: string = renderSSR(data);
   logger(appHtml);
   
   ctx.res.statusCode = 200;
