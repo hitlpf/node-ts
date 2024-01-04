@@ -25,10 +25,16 @@ const sleep = async function(deplay: number): Promise<void> {
 router.get('/', async (ctx, next) => {
   await next();
 
+  ctx.set({
+    Pragma: 'No-cache',
+    'Cache-Control': 'no-cache',
+    Expires: '0',
+    'content-type': 'text/html; charset=utf-8',
+  });
+  ctx.status = 200;
+
   const { manifestJs, mainJs, mainCss, vendorReactJs } = assetsUtil.getAssets();
 
-  ctx.set('Content-Type', 'text/html; charset=utf-8');
-  ctx.res.statusCode = 200;
   ctx.res.write(`
     <html>
     <head>
