@@ -3,7 +3,7 @@
     "dev": "rm -rf dist && npm-run-all --parallel *:dev",
     "server:dev": "npx webpack --env=production  --config ./build/webpack.server.js --watch",
     "client:dev": "npx webpack --env=production  --config ./build/webpack.client.js --watch",
-    "start": "nodemon ./dist/server/bundle.js"
+    "start": "nodemon ./dist/server/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",

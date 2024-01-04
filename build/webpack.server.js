@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/server',
   output: {
     path: path.resolve(__dirname, '../dist/server'),
-    filename: 'bundle.js'
+    filename: 'index.js'
   },
   mode: 'production',
   // 生成源码映射文件，这样才能支持断点调试ts源码
@@ -25,6 +25,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            // 预设：分别用于转译ES6语法、ts、react
             presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
             // 支持ts装饰器的插件
             plugins: [
