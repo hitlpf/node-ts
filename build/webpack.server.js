@@ -17,6 +17,7 @@ module.exports = {
     // 解析这些扩展名的文件
     extensions: ['.ts', '.js', '.tsx']
   },
+  
   module: {
     rules: [
       {
@@ -25,6 +26,11 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+            // 支持ts装饰器的插件
+            plugins: [
+              ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+              ['@babel/plugin-proposal-class-properties', { 'loose': true }]
+            ]
           }
         },
         // babel-loader不会转译任何在node_modules目录中的js、ts、tsx文件。
