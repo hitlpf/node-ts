@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+// import { renderToPipeableStream } from 'react-dom/server';
 import Koa from 'koa';
 import koaStatic from 'koa-static';
 import Router from 'koa-router';

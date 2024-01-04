@@ -2,10 +2,10 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  // 为node环境打包代码，确保Node.js内置模块不会被打包进去
+  // 指定了打包代码将适合在node环境中运行，确保Node.js内置模块不会被打包进去。
   target: 'node',
   // 应用程序的入口点
-  entry: './src/server.ts',
+  entry: './src/server',
   output: {
     path: path.resolve(__dirname, '../dist/server'),
     filename: 'bundle.js'
@@ -35,7 +35,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: {
-                // 支持css module，将className类名局部化，仅将className嵌入到html中，不生成 CSS 文件
+                // 该选项用于服务端渲染场景。支持css module，生成局部类名映射，可将className嵌入到html中，不生成包含 CSS 代码的js模块
                 exportOnlyLocals: true,
                 // className的命名格式
                 localIdentName: '[folder]_[local]_[hash:base64:8]',
@@ -46,6 +46,6 @@ module.exports = {
       },
     ]
   },
-  // 排除node_modules中的所有模块
+  // 排除node_modules中的所有模块，不然所有依赖的第三方模块都会被打进bundle中，程序运行可不再需要node_modules目录
   externals: [nodeExternals()],
 };
