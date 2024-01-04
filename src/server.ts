@@ -14,24 +14,41 @@ const app = new Koa();
 
 const router = new Router();
 
+const sleep = async function(deplay: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, deplay);
+  });
+}
+
 router.get('/', async (ctx, next) => {
   await next();
 
   const { manifestJs, mainJs, mainCss, vendorReactJs } = assetsUtil.getAssets();
+
+  ctx.set('Content-Type', 'text/html; charset=utf-8');
+  ctx.res.statusCode = 200;
+  ctx.res.write(`
+    <html>
+    <head>
+      <title>react ssr</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <link rel="stylesheet" href="${mainCss}" />
+    </head>
+    <body>
+  `);
+  
+  // 模拟延时1秒
+  await sleep(1000);
 
   const data = { name: 'andy' };
 
   const appHtml: string = renderToString(React.createElement(App, data));
   logger(appHtml);
   
-  ctx.body = `
-    <html>
-      <head>
-        <title>react ssr</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link rel="stylesheet" href="${mainCss}" />
-      </head>
-      <body>
+  ctx.res.statusCode = 200;
+  ctx.res.write(`
         <div id="root">${appHtml}</div>
         <script>
           // 所以这里要获取下存在服务端的数据并作为初始值存到 window 中
@@ -42,7 +59,9 @@ router.get('/', async (ctx, next) => {
         <script src="${vendorReactJs}"></script>
         <script src="${mainJs}"></script>
       </body>
-    </html>`;
+    </html>`);
+
+  ctx.res.end(null);
 });
 
 app.use(router.routes()).use(router.allowedMethods());
