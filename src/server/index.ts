@@ -6,9 +6,9 @@ import koaStatic from 'koa-static';
 import Router from 'koa-router';
 import path from 'path';
 
-import logger from "./util/logger";
-import assetsUtil from "./util/read-assets";
-import App from './views';
+import logger from "../util/logger";
+import assetsUtil from "../util/read-assets";
+import App from '../views';
 
 const app = new Koa();
 
@@ -41,6 +41,8 @@ router.get('/', async (ctx, next) => {
       <title>react ssr</title>
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <link rel="stylesheet" href="${mainCss}" />
+      <script src="${manifestJs}"></script>
+      <script src="${vendorReactJs}"></script>
     </head>
     <body>
   `);
@@ -61,8 +63,6 @@ router.get('/', async (ctx, next) => {
           // 数据脱水
           window.data = ${JSON.stringify(data)};
         </script>
-        <script src="${manifestJs}"></script>
-        <script src="${vendorReactJs}"></script>
         <script src="${mainJs}"></script>
       </body>
     </html>`);

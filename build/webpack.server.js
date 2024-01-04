@@ -11,6 +11,8 @@ module.exports = {
     filename: 'bundle.js'
   },
   mode: 'production',
+  // 生成源码映射文件，这样才能支持断点调试ts源码
+  devtool: 'source-map',
   resolve: {
     // 解析这些扩展名的文件
     extensions: ['.ts', '.js', '.tsx']
