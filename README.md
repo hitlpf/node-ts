@@ -1,5 +1,5 @@
 ## 简介
-本项目支持React+SSR+TS，客户端和服务端都支持TS，都是使用webpack进行代码转译。
+本项目支持React+SSR+TS，客户端和服务端(Node.js)都支持TS，都是使用webpack进行代码转译。
 
 ### 服务端打包
 ```
