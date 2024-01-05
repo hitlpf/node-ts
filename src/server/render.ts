@@ -2,10 +2,52 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 // import { renderToPipeableStream } from 'react-dom/server';
 
+import assetsUtil from "../util/read-assets";
+import { logger, sleep } from "../util/common";
+
 import App from '../views';
 
-export default function (data: any) {
+export default async function (ctx: any) {
+  ctx.set({
+    Pragma: 'No-cache',
+    'Cache-Control': 'no-cache',
+    Expires: '0',
+    'content-type': 'text/html; charset=utf-8',
+  });
+  ctx.status = 200;
+
+  const { manifestJs, mainJs, mainCss, vendorReactJs } = assetsUtil.getAssets();
+
+  ctx.res.write(`
+    <html>
+    <head>
+      <title>react ssr</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <link rel="stylesheet" href="${mainCss}" />
+      <script src="${manifestJs}"></script>
+      <script src="${vendorReactJs}"></script>
+    </head>
+    <body>
+  `);
+  
+  // 模拟延时1秒
+  await sleep(1000);
+
+  const data = { name: 'andy' };
+
   const appHtml: string = renderToString(React.createElement(App, data));
-  // const appHtml: string = renderToString(<App name={data.name}/>); // 这种<App/>写法，只能在tsx文件中用
-  return appHtml;
+  logger(appHtml);
+  
+  ctx.res.write(`
+        <div id="root">${appHtml}</div>
+        <script>
+          // 所以这里要获取下存在服务端的数据并作为初始值存到 window 中
+          // 数据脱水
+          window.data = ${JSON.stringify(data)};
+        </script>
+        <script src="${mainJs}"></script>
+      </body>
+    </html>`);
+
+  ctx.res.end(null);
 }
