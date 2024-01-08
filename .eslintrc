@@ -18,6 +18,13 @@
     "uigs_cl": false,
     "MutationObserver": false
   },
+  "ignorePatterns": [
+    "*.scss",
+    "*.css",
+    "*.json",
+    "*.md",
+    "types.ts"
+  ],
   "parserOptions": {
     "ecmaVersion": 2018,
     "allowImportExportEverywhere": true

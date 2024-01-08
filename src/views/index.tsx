@@ -4,6 +4,9 @@ import classNames from 'classnames';
 
 import { AppProps } from './types';
 
+import Title from './components/title';
+import Abstract from './components/abstract';
+
 // css module的样式
 import styles from './index.module.scss';
 
@@ -11,11 +14,12 @@ import styles from './index.module.scss';
 import './style.css';
 
 const App: React.FC<AppProps> = (props: AppProps) => (
-    <div className={classNames(styles.reactSSRContainer, 'title')} onClick={() => {
-      alert(props?.name);
-    }}>
-      Hello, {props?.name}, Server-Side Rendering! 此处可以进行点击l！
-    </div>
+  <div className={classNames(styles.reactSSRContainer, 'main-body')}>
+    <Title text={`hello, ${props?.name}`}/>
+    <Abstract summary='Server-Side Rendering! 此处可以进行点击!' onClick={() => {
+      alert('摘要点击');
+    }}/>
+  </div>
 );
 
 export default App;
