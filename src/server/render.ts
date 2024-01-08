@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import { Context } from 'koa';
 // import { renderToPipeableStream } from 'react-dom/server';
 
 import assetsUtil from "../util/read-assets";
@@ -7,7 +8,7 @@ import { logger, sleep } from "../util/common";
 
 import App from '../views';
 
-export default async function (ctx: any) {
+export default async function (ctx: Context) {
   ctx.set({
     Pragma: 'No-cache',
     'Cache-Control': 'no-cache',
@@ -20,14 +21,14 @@ export default async function (ctx: any) {
 
   ctx.res.write(`
     <html>
-    <head>
-      <title>react ssr</title>
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      <link rel="stylesheet" href="${mainCss}" />
-      <script src="${manifestJs}"></script>
-      <script src="${vendorReactJs}"></script>
-    </head>
-    <body>
+      <head>
+        <title>react ssr</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="${mainCss}" />
+        <script src="${manifestJs}"></script>
+        <script src="${vendorReactJs}"></script>
+      </head>
+      <body>
   `);
   
   // 模拟延时1秒
