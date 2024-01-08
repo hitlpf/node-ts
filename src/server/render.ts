@@ -3,8 +3,8 @@ import { renderToString } from 'react-dom/server';
 import { Context } from 'koa';
 // import { renderToPipeableStream } from 'react-dom/server';
 
-import assetsUtil from "../util/read-assets";
-import { logger, sleep } from "../util/common";
+import assetsUtil from '../util/read-assets';
+import { logger, sleep } from '../util/common';
 
 import App from '../views';
 
@@ -19,6 +19,7 @@ export default async function (ctx: Context) {
 
   const { manifestJs, mainJs, mainCss, vendorReactJs } = assetsUtil.getAssets();
 
+  // 先将第一片传到浏览器
   ctx.res.write(`
     <html>
       <head>
@@ -30,7 +31,7 @@ export default async function (ctx: Context) {
       </head>
       <body>
   `);
-  
+
   // 模拟延时1秒
   await sleep(1000);
 
@@ -38,7 +39,7 @@ export default async function (ctx: Context) {
 
   const appHtml: string = renderToString(React.createElement(App, data));
   logger(appHtml);
-  
+
   ctx.res.write(`
         <div id="root">${appHtml}</div>
         <script>

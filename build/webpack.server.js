@@ -8,16 +8,16 @@ module.exports = {
   entry: './src/server',
   output: {
     path: path.resolve(__dirname, '../dist/server'),
-    filename: 'index.js'
+    filename: 'index.js',
   },
   mode: 'production',
   // 生成源码映射文件，这样才能支持断点调试ts源码
   devtool: 'source-map',
   resolve: {
     // 解析这些扩展名的文件
-    extensions: ['.ts', '.js', '.tsx']
+    extensions: ['.ts', '.js', '.tsx'],
   },
-  
+
   module: {
     rules: [
       {
@@ -29,10 +29,10 @@ module.exports = {
             presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
             // 支持ts装饰器的插件
             plugins: [
-              ['@babel/plugin-proposal-decorators', { 'legacy': true }],
-              ['@babel/plugin-proposal-class-properties', { 'loose': true }]
-            ]
-          }
+              ['@babel/plugin-proposal-decorators', { legacy: true }],
+              ['@babel/plugin-proposal-class-properties', { loose: true }],
+            ],
+          },
         },
         // babel-loader不会转译任何在node_modules目录中的js、ts、tsx文件。
         exclude: /node_modules/,
@@ -51,9 +51,9 @@ module.exports = {
               },
             },
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
   // 排除node_modules中的所有模块，不然所有依赖的第三方模块都会被打进bundle中，程序运行可不再需要node_modules目录
   externals: [nodeExternals()],

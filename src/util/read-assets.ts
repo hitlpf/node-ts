@@ -7,11 +7,11 @@ import fs from 'fs';
  */
 function methodDecorator(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const originalMethod = descriptor.value;
-  descriptor.value = function(...args: any[]) {
-      console.log(`----开始读取js资源 ${propertyKey}`);
-      const result = originalMethod.apply(this, args);
-      console.log(`----结束读取js资源 ${propertyKey}`);
-      return result;
+  descriptor.value = function (...args: any[]) {
+    console.log(`----开始读取js资源 ${propertyKey}`);
+    const result = originalMethod.apply(this, args);
+    console.log(`----结束读取js资源 ${propertyKey}`);
+    return result;
   };
   return descriptor;
 }
@@ -20,20 +20,20 @@ class Assets {
   readonly filename: string = 'dist/client/assets.json';
 
   public getAssetsJsonFile() {
-    return fs.readFileSync(this.filename, "utf-8");
+    return fs.readFileSync(this.filename, 'utf-8');
   }
 
   @methodDecorator
   public getAssets() {
     const assetsJsonFile = this.getAssetsJsonFile();
     const assetsJson = JSON.parse(assetsJsonFile);
-    const { 
-      manifest: { js: manifestJs }, 
-      main: { js: mainJs, css: mainCss }, 
-      vendor_react: { js: vendorReactJs }, 
+    const {
+      manifest: { js: manifestJs },
+      main: { js: mainJs, css: mainCss },
+      vendor_react: { js: vendorReactJs },
     } = assetsJson;
 
-    return { manifestJs, mainJs, vendorReactJs, mainCss }
+    return { manifestJs, mainJs, vendorReactJs, mainCss };
   }
 }
 

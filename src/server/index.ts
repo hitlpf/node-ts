@@ -2,7 +2,7 @@ import Koa from 'koa';
 import koaStatic from 'koa-static';
 import path from 'path';
 
-import { logger } from "../util/common";
+import { logger } from '../util/common';
 
 import router from './router';
 
