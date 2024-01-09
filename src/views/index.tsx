@@ -6,6 +6,7 @@ import { AppProps } from './types';
 
 import Title from './components/title';
 import Abstract from './components/abstract';
+import SearchBox from './components/search-box';
 
 // css module的样式
 import styles from './index.module.scss';
@@ -16,9 +17,10 @@ import './style.css';
 const App: React.FC<AppProps> = (props: AppProps) => (
   <div className={classNames(styles.reactSSRContainer, 'main-body')}>
     <Title text={`hello, ${props?.name}`}/>
-    <Abstract summary='Server-Side Rendering! 此处可以进行点击!' onClick={() => {
+    <Abstract summary='Server-Side Rendering! 此处点击可异步拉取数据!' onClick={() => {
       alert('摘要点击');
     }}/>
+    <SearchBox/>
   </div>
 );
 

@@ -13,7 +13,7 @@ const Abstract: React.FC<AbstractProps> = (props: AbstractProps) => {
     console.log('');
   }, []);
 
-  return (<div className='abstract' onClick={clickHandle}>{props.summary}</div>);
+  return (<div className='abstract' onClick={clickHandle || props.onClick}>{props.summary}</div>);
 };
 
 export default Abstract;
