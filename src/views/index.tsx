@@ -16,8 +16,8 @@ import './style.css';
 
 const App: React.FC<AppProps> = (props: AppProps) => (
   <div className={classNames(styles.reactSSRContainer, 'main-body')}>
-    <Title text={`hello, ${props?.name}`}/>
-    <Abstract summary='Server-Side Rendering! 此处点击可异步拉取数据!' onClick={() => {
+    <Title text={`标题: hello, ${props?.name}`}/>
+    <Abstract summary='摘要: Server-Side Rendering! 此处点击可异步拉取数据!' onClick={() => {
       alert('摘要点击');
     }}/>
     <SearchBox/>

@@ -9,4 +9,6 @@
 
 .search-box {
   margin-top: 20px;
+  padding: 10px 10px;
+  border: 1px solid #000;
 }
