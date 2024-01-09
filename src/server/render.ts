@@ -17,7 +17,7 @@ export default async function (ctx: Context) {
   });
   ctx.status = 200;
 
-  const { manifestJs, mainJs, mainCss, vendorReactJs } = assetsUtil.getAssets();
+  const { manifestJs, mainJs, mainCss, vendorReactJs, vendorCommonJs } = assetsUtil.getAssets();
 
   // 先将第一片传到浏览器
   ctx.res.write(`
@@ -27,6 +27,7 @@ export default async function (ctx: Context) {
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="${mainCss}" />
         <script src="${manifestJs}"></script>
+        <script src="${vendorCommonJs}"></script>
         <script src="${vendorReactJs}"></script>
       </head>
       <body>

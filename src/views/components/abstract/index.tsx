@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 import { AbstractProps } from './types';
 
-const Abstract: React.FC<AbstractProps> = (props: AbstractProps) => (
-  <div className='abstract' onClick={props.onClick}>{props.summary}</div>
-);
+const clickHandle = async function () {
+  const data = await axios.get('/getInfo');
+  console.log(data);
+};
+
+const Abstract: React.FC<AbstractProps> = (props: AbstractProps) => {
+  useEffect(() => {
+    console.log('');
+  }, []);
+
+  return (<div className='abstract' onClick={clickHandle}>{props.summary}</div>);
+};
 
 export default Abstract;

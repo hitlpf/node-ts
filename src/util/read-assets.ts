@@ -31,9 +31,10 @@ class Assets {
       manifest: { js: manifestJs },
       main: { js: mainJs, css: mainCss },
       vendor_react: { js: vendorReactJs },
+      vendor_common: { js: vendorCommonJs },
     } = assetsJson;
 
-    return { manifestJs, mainJs, vendorReactJs, mainCss };
+    return { manifestJs, mainJs, vendorReactJs, vendorCommonJs, mainCss };
   }
 }
 

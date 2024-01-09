@@ -24,7 +24,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   // 配置source map以便调试。可以在浏览器的开发者工具中查看和调试原始源代码。
-  // devtool: 'source-map',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -77,12 +77,17 @@ module.exports = {
     },
     splitChunks: {
       chunks: 'all',
+      minChunks: 1,
       cacheGroups: {
         vendors: false,
-        default: false,
         vendor_react: {
           test: module => /[\\/]node_modules[\\/](react|react-dom)[\\/]/.test(module.resource),
           name: 'vendor_react',
+          chunks: 'all',
+          priority: 100,
+        },
+        default: {
+          name: 'vendor_common',
           chunks: 'all',
           priority: 10,
         },

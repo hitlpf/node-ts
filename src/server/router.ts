@@ -10,4 +10,14 @@ router.get('/', async (ctx, next) => {
   await renderSSR(ctx);
 });
 
+router.get('/getInfo', async (ctx, next) => {
+  await next();
+
+  // 返回结果
+  ctx.set('content-type', 'application/json; charset=utf-8');
+  ctx.body = {
+    page: [],
+  };
+});
+
 export default router;
