@@ -7,7 +7,7 @@ const Abstract: React.FC<AbstractProps> = (props: AbstractProps) => {
   const [asyncValue, setAsyncValue] = useState('');
 
   const clickHandle = async function () {
-    const data = await axios.get('/getInfo');
+    const data = await axios.get('/getInfo?key=abstract');
     setAsyncValue(data.data.info);
   };
 
