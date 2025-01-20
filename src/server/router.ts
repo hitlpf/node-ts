@@ -4,7 +4,7 @@ import renderSSR from './render';
 
 const router = new Router();
 
-router.get('/', async (ctx, next) => {
+router.get(['/', '/web'], async (ctx, next) => {
   await next();
 
   await renderSSR(ctx);

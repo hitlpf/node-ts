@@ -1,12 +1,11 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Context } from 'koa';
-// import { renderToPipeableStream } from 'react-dom/server';
 
 import assetsUtil from '../util/read-assets';
 import { logger, sleep } from '../util/common';
-
-import App from '../views';
+import Routers from '../views/components/routers/index';
+import { StaticRouter } from 'react-router-dom/server';
 
 export default async function (ctx: Context) {
   ctx.set({
@@ -34,11 +33,18 @@ export default async function (ctx: Context) {
   `);
 
   // 模拟延时1秒
-  await sleep(1000);
+  await sleep(100);
 
   const data = { name: 'andy' };
 
-  const appHtml: string = renderToString(React.createElement(App, data));
+  // const appHtml: string = renderToString(React.createElement(App, data));
+  const appHtml = renderToString(React.createElement(
+    StaticRouter,
+    {
+      location: ctx.request.path,
+    },
+    React.createElement(Routers, data),
+  ));
   logger(appHtml);
 
   ctx.res.write(`

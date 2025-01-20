@@ -14,6 +14,7 @@ import styles from './index.module.scss';
 // .css文件纯css，没有用到css module
 import './style.css';
 
+
 const App: React.FC<AppProps> = (props: AppProps) => (
   <div className={classNames(styles.reactSSRContainer, 'main-body')}>
     <Title text={`标题: hello, ${props?.name}`}/>
